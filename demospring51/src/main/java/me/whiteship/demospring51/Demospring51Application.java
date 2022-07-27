@@ -8,9 +8,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.GenericApplicationContext;
 
 @SpringBootApplication
+@PropertySource("classpath:/app.properties")
 public class Demospring51Application {
 //	
 //	@Autowired 

@@ -8,11 +8,14 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 @SpringBootApplication
-@PropertySource("classpath:/app.properties")
+//@PropertySource("classpath:/app.properties")
 public class Demospring51Application {
 //	
 //	@Autowired 
@@ -51,5 +54,14 @@ public class Demospring51Application {
 //			});
 //		app.run(args);
 	}
+	
+//	@Bean
+//	public MessageSource messageSource() {
+//		var messageSource = new ReloadableResourceBundleMessageSource();
+//		messageSource.setBasename("classpath:/messages");
+//		messageSource.setDefaultEncoding("UTF-8");
+//		messageSource.setCacheSeconds(3);
+//		return messageSource;
+//	}
 
 }

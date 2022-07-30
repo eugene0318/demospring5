@@ -18,6 +18,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Component
 public class AppRunner implements ApplicationRunner {
@@ -45,16 +48,36 @@ public class AppRunner implements ApplicationRunner {
 	@Autowired
 	ApplicationContext resourceLoader;
 
-//	
+	@Autowired
+	Validator validator;
+	
+	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		System.out.println(resourceLoader.getClass());
-		Resource resource = resourceLoader.getResource("classpath:test.txt"); 
-		System.out.println(resource.getClass());
-		System.out.println(resource.exists()); //
-		System.out.println(resource.getDescription()); //
-		System.out.println(Files.readString(Path.of(resource.getURI())));
+		Event event = new Event();
+		EventValidator eventValidator = new EventValidator();
+		
+		Errors errors = new BeanPropertyBindingResult(event, "event"); //target, name 
+		
+		eventValidator.validate(event, errors);
+		
+		System.out.println(errors.hasErrors());
+		
+		errors.getAllErrors().forEach(e->{
+			
+			System.out.println("===========error code==============");
+			
+			Arrays.stream(e.getCodes()).forEach(System.out::println);
+			System.out.println(e.getDefaultMessage());
+		});
+		
+//		System.out.println(resourceLoader.getClass());
+//		Resource resource = resourceLoader.getResource("classpath:test.txt"); 
+//		System.out.println(resource.getClass());
+//		System.out.println(resource.exists()); //
+//		System.out.println(resource.getDescription()); //
+//		System.out.println(Files.readString(Path.of(resource.getURI())));
 
 		// publishEvent.publishEvent(new MyEvent(this, 100));
 
